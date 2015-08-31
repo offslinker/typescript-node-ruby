@@ -24,6 +24,7 @@ module TypeScript
       def compile_file(source_file, *tsc_options)
         Dir.mktmpdir do |output_dir|
           output_file = File.join(output_dir, 'out.js')
+          tsc_options << '--jsx' << 'react' if source_file[/\.tsx$/] && !tsc_options.include?('--jsx')
           stdout, stderr, exit_status = tsc(*tsc_options, '--out', output_file, source_file)
 
           output_js = File.exist?(output_file) ? File.read(output_file) : nil

@@ -52,4 +52,10 @@ class TestTypeScriptNode < Test::Unit::TestCase
     assert { subject != nil }
   end
 
+  def test_compile_file_jsx
+    file = File.expand_path('data/react_test.tsx', File.dirname(__FILE__))
+    subject = TypeScript::Node.compile_file(file)
+
+    assert { subject.success? }
+  end
 end
